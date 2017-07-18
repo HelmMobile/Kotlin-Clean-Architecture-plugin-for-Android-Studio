@@ -21,7 +21,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 intellij {
     version '162.2228.15'
     pluginName 'Clean'
-    plugins = ['android', 'kotlin']
+    plugins = ['android', 'kotlin', 'Gradle']
 
 }
 

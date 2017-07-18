@@ -1,0 +1,15 @@
+package ${PACKAGE_NAME};
+
+import javax.inject.Inject
+
+
+#parse("File Header.java")
+class ${NAME}:  BaseActivity() {
+    @Inject lateinit var presenter: ${PRESENTER_NAME}
+
+    override fun onRequestLayout(): Int =
+
+    override fun onViewLoaded(){
+
+    }
+}

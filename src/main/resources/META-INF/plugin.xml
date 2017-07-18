@@ -21,6 +21,7 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
+        <internalFileTemplate name="CleanActivity"/>
     </extensions>
 
     <application-components>
@@ -30,6 +31,10 @@
     </project-components>
 
     <actions>
+        <action id="NewActivityScene" class="NewActivityScene" text="Create New Activity Scene"
+                description="Creates a new Scene and Its components">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="Kotlin.NewFile"/>
+        </action>
     </actions>
 
 </idea-plugin>
