@@ -3,8 +3,7 @@ package ${PACKAGE_NAME};
 import javax.inject.Inject
 
 
-#parse("File Header.java")
-class ${NAME}:  BaseActivity() {
+class ${NAME}:  BaseActivity(), ${VIEW_NAME} {
     @Inject lateinit var presenter: ${PRESENTER_NAME}
 
     override fun onRequestLayout(): Int =

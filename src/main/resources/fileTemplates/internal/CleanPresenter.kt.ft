@@ -1,0 +1,8 @@
+package ${PACKAGE_NAME};
+
+import javax.inject.Inject
+
+
+class ${NAME} @Inject constructor(val view: ${VIEW_NAME}) {
+
+}

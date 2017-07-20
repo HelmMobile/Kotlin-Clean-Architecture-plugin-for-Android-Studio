@@ -1,4 +1,4 @@
-<idea-plugin version="2">
+<idea-plugin>
     <id>cat.helm.idea</id>
     <name>Clean</name>
     <version>1.0</version>
@@ -16,10 +16,10 @@
 
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
-    <!-- uncomment to enable plugin in all products
+    <!-- uncomment to enable plugin in all products -->
     <depends>com.intellij.modules.lang</depends>
-    -->
-
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
     <extensions defaultExtensionNs="com.intellij">
         <internalFileTemplate name="CleanActivity"/>
     </extensions>
@@ -33,7 +33,7 @@
     <actions>
         <action id="NewActivityScene" class="NewActivityScene" text="Create New Activity Scene"
                 description="Creates a new Scene and Its components">
-            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="Kotlin.NewFile"/>
+            <add-to-group  group-id="NewGroup" anchor="after" relative-to-action="Kotlin.NewFile"/>
         </action>
     </actions>
 
