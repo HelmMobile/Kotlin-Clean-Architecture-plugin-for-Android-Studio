@@ -4,23 +4,49 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.Messages
+import com.intellij.openapi.ui.DialogBuilder
+import com.intellij.openapi.ui.InputValidator
 import com.intellij.openapi.vfs.ReadonlyStatusHandler
 import com.intellij.psi.*
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.ui.components.JBCheckBox
+import com.intellij.ui.components.JBLabel
+import com.intellij.ui.components.JBTextField
 import org.jetbrains.android.facet.AndroidFacet
 import org.jetbrains.android.dom.manifest.*
 import org.jetbrains.android.util.AndroidUtils
 import org.jetbrains.kotlin.idea.decompiler.navigation.SourceNavigationHelper
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFile
+import net.miginfocom.swing.MigLayout
+import java.awt.BorderLayout
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.BoxLayout
+import javax.swing.JButton
+import jdk.nashorn.tools.ShellFunctions.input
+import java.awt.GridBagConstraints
+import java.awt.GridBagLayout
+import java.awt.Insets
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
+
+
+
 
 /**
  * Created by Borja on 17/7/17.
  */
 class NewActivityScene : AnAction() {
 
+
+    lateinit var panel: JPanel
+
+
     override fun actionPerformed(actionEvent: AnActionEvent) {
+
+        customDialog(actionEvent.project!!)
+        /*
         val dialogValues = Messages.showInputDialogWithCheckBox("Enter new scene name", "New Scene", "Es main activity?", false, true, null, null, null)
         val sceneName = dialogValues.first
         val isMainActivity = dialogValues.second
@@ -53,6 +79,7 @@ class NewActivityScene : AnAction() {
 
             }
         }
+        */
     }
 
     private fun addActivityEntryToManifest(actionEvent: AnActionEvent, project: Project?, activityFile: PsiElement, isMainActivity: Boolean) {
@@ -109,6 +136,57 @@ class NewActivityScene : AnAction() {
 
             null
         }
+
+    }
+
+    private fun customDialog(project: Project){
+
+        val mainActivityCheckBox = JBCheckBox("Is Main Activity?",false)
+        val layoutCheckBox = JBCheckBox("Do you want layout file?", true)
+
+
+
+
+
+        panel = JPanel(GridBagLayout())
+        panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
+        panel.isOpaque = true
+
+        val text = JBLabel("Introduce scene name:")
+        val input = JBTextField()
+        input.requestFocus()
+        panel.add(text)
+        //panel.add(input)
+        panel.add(input, GridBagConstraints().apply { gridx = 1; gridy = 0; insets = Insets(3, 3, 3, 10); weightx = 2.0; fill = GridBagConstraints.HORIZONTAL })
+        panel.add(mainActivityCheckBox,"wrap")
+        panel.add(layoutCheckBox,"wrap")
+        val okButton = JButton("Ok")
+        panel.add(okButton)
+
+
+
+        val frame = JFrame("Create Scene Plugin")
+        frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
+        frame.contentPane.add(BorderLayout.CENTER, panel)
+        frame.setLocationRelativeTo(null)
+        frame.pack()
+        frame.isVisible = true
+        frame.setSize(400,200)
+
+        okButton.addActionListener(ButtonListener(frame))
+
+
+
+    }
+
+    class ButtonListener(val frame: JFrame) : ActionListener {
+
+        override fun actionPerformed(e: ActionEvent?) {
+
+            frame.dispose()
+
+        }
+
 
     }
 
