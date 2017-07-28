@@ -15,7 +15,6 @@ import org.jetbrains.kotlin.idea.decompiler.navigation.SourceNavigationHelper
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFile
 
-
 /**
  * Created by Borja on 17/7/17.
  */
@@ -88,8 +87,6 @@ class NewActivityScene : AnAction() {
         val layoutTemplate = Template.Layout(correctLayoutName)
         layoutTemplate.createTemplate(project, destinationDirectoryLayout!!)
 
-        //AndroidResourceUtil.createFileResource()
-
         val activityTemplate = Template.Activity(sceneName, destinationDirectory)
         val activityFile = activityTemplate.createTemplate(project, destinationDirectory)
 
@@ -114,4 +111,5 @@ class NewActivityScene : AnAction() {
         }
 
     }
+
 }
