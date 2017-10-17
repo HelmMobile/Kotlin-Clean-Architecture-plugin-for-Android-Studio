@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>cat.helm.idea</id>
     <name>Clean</name>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <vendor email="info@helm.com" url="http://www.helm.cat">Helm</vendor>
 
     <description><![CDATA[
@@ -12,7 +12,7 @@
     </change-notes>
 
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="143.2370.31"/>
+    <idea-version since-build="131"/>
 
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
@@ -22,6 +22,8 @@
     <depends>org.jetbrains.kotlin</depends>
     <extensions defaultExtensionNs="com.intellij">
         <internalFileTemplate name="CleanActivity"/>
+        <defaultProjectTypeProvider type="Android"/>
+
     </extensions>
 
     <application-components>
@@ -30,8 +32,10 @@
     <project-components>
     </project-components>
 
+    <depends>org.jetbrains.android</depends>
+
     <actions>
-        <action id="NewActivityScene" class="NewActivityScene" text="Create New Activity Scene"
+        <action id="NewActivityScene" class="cat.helm.idea.action.NewActivityScene" text="Create New Activity Scene"
                 description="Creates a new Scene and Its components">
             <add-to-group  group-id="NewGroup" anchor="after" relative-to-action="Kotlin.NewFile"/>
         </action>

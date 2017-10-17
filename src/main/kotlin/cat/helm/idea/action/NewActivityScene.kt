@@ -1,38 +1,34 @@
+
+package cat.helm.idea.action
+
 import cat.helm.idea.template.Template
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.DialogBuilder
-import com.intellij.openapi.ui.InputValidator
+import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.ReadonlyStatusHandler
-import com.intellij.psi.*
+import com.intellij.psi.JavaPsiFacade
+import com.intellij.psi.PsiDirectory
+import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
+import org.jetbrains.android.dom.manifest.Manifest
 import org.jetbrains.android.facet.AndroidFacet
-import org.jetbrains.android.dom.manifest.*
 import org.jetbrains.android.util.AndroidUtils
 import org.jetbrains.kotlin.idea.decompiler.navigation.SourceNavigationHelper
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFile
-import net.miginfocom.swing.MigLayout
-import java.awt.BorderLayout
-import javax.swing.JFrame
-import javax.swing.JPanel
-import javax.swing.BoxLayout
-import javax.swing.JButton
-import jdk.nashorn.tools.ShellFunctions.input
-import java.awt.GridBagConstraints
-import java.awt.GridBagLayout
-import java.awt.Insets
+import java.awt.*
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-
-
-
+import javax.swing.BoxLayout
+import javax.swing.JButton
+import javax.swing.JFrame
+import javax.swing.JPanel
 
 /**
  * Created by Borja on 17/7/17.
@@ -45,8 +41,11 @@ class NewActivityScene : AnAction() {
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
 
-        customDialog(actionEvent.project!!)
-        /*
+//        val dialog = SceneDialog(actionEvent.project!!)
+//        dialog.show()
+
+        //customDialog(actionEvent.project!!)
+
         val dialogValues = Messages.showInputDialogWithCheckBox("Enter new scene name", "New Scene", "Es main activity?", false, true, null, null, null)
         val sceneName = dialogValues.first
         val isMainActivity = dialogValues.second
@@ -79,7 +78,7 @@ class NewActivityScene : AnAction() {
 
             }
         }
-        */
+
     }
 
     private fun addActivityEntryToManifest(actionEvent: AnActionEvent, project: Project?, activityFile: PsiElement, isMainActivity: Boolean) {
@@ -91,6 +90,10 @@ class NewActivityScene : AnAction() {
                 !ReadonlyStatusHandler.ensureFilesWritable(facet.module.project, manifest)) {
             throw Exception()
         }
+
+//        val manifest2 = facet.manifest
+//        manifest2.
+
         val manifestDom = AndroidUtils.loadDomElement(facet.module, manifest, Manifest::class.java)
         val application = manifestDom?.application
         WriteCommandAction.runWriteCommandAction(project) {
@@ -149,19 +152,20 @@ class NewActivityScene : AnAction() {
 
 
         panel = JPanel(GridBagLayout())
+        panel.preferredSize = Dimension(350, -1)
+
         panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
         panel.isOpaque = true
 
         val text = JBLabel("Introduce scene name:")
         val input = JBTextField()
         input.requestFocus()
-        panel.add(text)
-        //panel.add(input)
+        panel.add(text,GridBagConstraints().apply { gridx = 0; gridy = 1; insets = Insets(3, 3, 3, 10); fill = GridBagConstraints.HORIZONTAL })
         panel.add(input, GridBagConstraints().apply { gridx = 1; gridy = 0; insets = Insets(3, 3, 3, 10); weightx = 2.0; fill = GridBagConstraints.HORIZONTAL })
-        panel.add(mainActivityCheckBox,"wrap")
-        panel.add(layoutCheckBox,"wrap")
+        panel.add(mainActivityCheckBox,GridBagConstraints().apply { gridx = 0; gridy = 1; insets = Insets(3, 3, 3, 10); fill = GridBagConstraints.HORIZONTAL })
+        panel.add(layoutCheckBox,GridBagConstraints().apply { gridx = 0; gridy = 1; insets = Insets(3, 3, 3, 10); fill = GridBagConstraints.HORIZONTAL })
         val okButton = JButton("Ok")
-        panel.add(okButton)
+        panel.add(okButton,GridBagConstraints().apply { gridx = 0; gridy = 1; insets = Insets(3, 3, 3, 10); fill = GridBagConstraints.HORIZONTAL })
 
 
 
