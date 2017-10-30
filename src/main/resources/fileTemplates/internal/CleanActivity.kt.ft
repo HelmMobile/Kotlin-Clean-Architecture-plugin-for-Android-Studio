@@ -1,0 +1,16 @@
+package ${PACKAGE_NAME};
+
+import javax.inject.Inject
+
+
+class ${NAME}:  BaseActivity(), ${VIEW_NAME} {
+
+    @Inject lateinit var presenter: ${PRESENTER_NAME}
+
+    override fun onRequestLayout(): Int = R.layout.activity_${LAYOUT_FILE_NAME}
+
+    override fun onViewLoaded(){
+
+    }
+
+}

@@ -1,0 +1,14 @@
+package ${PACKAGE_NAME};
+
+
+import dagger.Module
+import dagger.Provides
+
+@Module
+class ${SCENE_NAME}ActivityModule {
+
+    @Provides
+    internal fun provide${SCENE_NAME}View(mainActivity: ${SCENE_NAME}Activity): ${SCENE_NAME}View {
+        return mainActivity
+    }
+}
