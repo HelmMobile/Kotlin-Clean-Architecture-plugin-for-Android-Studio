@@ -1,8 +1,8 @@
-#Kotlin Clean Architecture plugin for Android Studio
+ # Kotlin Clean Architecture plugin for Android Studio
 
 This plugin automatizes the creation of boilerplate needed to develop Android applications using [our clean architecture approach](https://github.com/HelmMobile/KotlinCleanArchitecture).
 
-##Features
+ ## Features
 
 - Creates and configures scene files
     - Activity
@@ -14,24 +14,24 @@ This plugin automatizes the creation of boilerplate needed to develop Android ap
 
 Refer to Roadmap to see what's next
 
-##Usage
+ ## Usage
 
 ![Screencast](./art/demo.gif)
 
-##Installation
+ ## Installation
 
 This plugin is available in the [JetBrains Plugin Repository](https://plugins.jetbrains.com/plugin/10137-clean-architecture-templates)
 
 Alternatively you can also download .zip in releases tab and install it manually through Preferences/Settings -> Plugins -> Install plugin from disk...`
 
-##Road map
+ ## Road map
 
 - Wizard with project creation
 - Generate interactors
 - Generate data sources
 - Generate queries
 
-##License
+ ## License
 
     Copyright 2017 Helm
 
