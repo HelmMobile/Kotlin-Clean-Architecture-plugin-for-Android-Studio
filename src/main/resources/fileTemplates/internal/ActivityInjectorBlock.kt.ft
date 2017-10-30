@@ -1,0 +1,3 @@
+
+    @ContributesAndroidInjector(modules = arrayOf(${NAME}ActivityModule::class))
+    abstract fun contribute${NAME}Injector(): ${NAME}Activity

@@ -1,10 +1,13 @@
 <idea-plugin>
-    <id>cat.helm.idea</id>
-    <name>Clean</name>
-    <version>1.0-SNAPSHOT</version>
-    <vendor email="info@helm.com" url="http://www.helm.cat">Helm</vendor>
+    <id>cat.helm.clean</id>
+    <name>Clean Architecture Templates</name>
+    <version>0.1.0-SNAPSHOT</version>
+    <vendor email="info@helm.cat" url="http://www.helm.cat">Helm</vendor>
 
     <description><![CDATA[
+        This plugin provides the ability to create all files needed to create an activity following this version
+        of clean architecture https://github.com/HelmMobile/KotlinCleanArchitecture.
+
     ]]></description>
 
     <change-notes><![CDATA[
@@ -12,7 +15,7 @@
     </change-notes>
 
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="131"/>
+    <idea-version since-build="171"/>
 
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
@@ -21,9 +24,7 @@
     <depends>org.jetbrains.android</depends>
     <depends>org.jetbrains.kotlin</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <internalFileTemplate name="CleanActivity"/>
         <defaultProjectTypeProvider type="Android"/>
-
     </extensions>
 
     <application-components>
@@ -36,7 +37,7 @@
 
     <actions>
         <action id="NewActivityScene" class="cat.helm.idea.action.NewActivityScene" text="Create New Activity Scene"
-                description="Creates a new Scene and Its components">
+                description="Creates a new Scene and Its components"   icon = "/icons/action.png">
             <add-to-group  group-id="NewGroup" anchor="after" relative-to-action="Kotlin.NewFile"/>
         </action>
     </actions>

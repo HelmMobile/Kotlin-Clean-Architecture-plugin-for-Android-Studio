@@ -19,11 +19,10 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 intellij {
-    version '162.2228.15'
     pluginName 'Clean'
     plugins = ['android', 'Kotlin', 'Gradle']
     updateSinceUntilBuild false
-
+    intellij.alternativeIdePath = '/Applications/Android Studio.app'
 }
 
 group 'cat.helm.idea'

@@ -1,5 +1,7 @@
-package cat.helm.idea.template
+package cat.helm.idea.scene
 
+import cat.helm.idea.extensions.NameFormats
+import cat.helm.idea.extensions.sceneNameFormat
 import com.intellij.ide.fileTemplates.FileTemplateManager
 import com.intellij.ide.fileTemplates.FileTemplateUtil
 import com.intellij.openapi.project.Project
@@ -13,10 +15,11 @@ import java.util.*
  * Created by Borja on 18/7/17.
  */
 
-sealed class Template(val sceneName: String) {
+sealed class SceneTemplate(val sceneName: String) {
 
     abstract val name: String
     abstract val templateFileName: String
+
 
     fun createTemplate(project: Project, destinationDirectory: PsiDirectory): PsiElement {
 
@@ -28,19 +31,17 @@ sealed class Template(val sceneName: String) {
 
     abstract fun getProperties(templateProperties: Properties): Properties?
 
-    class Activity(sceneName: String, destinationDirectory: PsiDirectory) : Template(sceneName) {
+    class Activity(sceneName: String) : SceneTemplate(sceneName) {
 
-        val layoutName = sceneName.substring(0,1).toLowerCase()+sceneName.substring(1)
-
-        var baseActivityImport = (destinationDirectory.parentDirectory as PsiJavaDirectoryImpl).getPackage()?.qualifiedName
-        var rImport = (destinationDirectory.parentDirectory?.parentDirectory as PsiJavaDirectoryImpl).getPackage()?.qualifiedName
-
+     //   var baseActivityImport = (destinationDirectory.parentDirectory as PsiJavaDirectoryImpl).getPackage()?.qualifiedName
+      //  var rImport = (destinationDirectory.parentDirectory?.parentDirectory as PsiJavaDirectoryImpl).getPackage()?.qualifiedName
         override fun getProperties(templateProperties: Properties): Properties? {
             templateProperties.put("PRESENTER_NAME", Presenter(sceneName).name)
             templateProperties.put("VIEW_NAME", View(sceneName).name)
-            templateProperties.put("BASE_ACTIVITY",baseActivityImport)
-            templateProperties.put("LAYOUT_FILE_NAME",layoutName)
-            templateProperties.put("PAKCAGE",rImport)
+            //   templateProperties.put("BASE_ACTIVITY", baseActivityImport)
+            templateProperties.put("LAYOUT_FILE_NAME", sceneName.sceneNameFormat(NameFormats.LAYOUT))
+          //  templateProperties.put("PAKCAGE", rImport)
+
             return templateProperties
         }
 
@@ -49,7 +50,7 @@ sealed class Template(val sceneName: String) {
 
     }
 
-    class Presenter(sceneName: String) : Template(sceneName) {
+    class Presenter(sceneName: String) : SceneTemplate(sceneName) {
 
         override fun getProperties(templateProperties: Properties): Properties? {
             templateProperties.put("VIEW_NAME", View(sceneName).name)
@@ -60,18 +61,29 @@ sealed class Template(val sceneName: String) {
         override val templateFileName: String = "CleanPresenter"
     }
 
-    class View(sceneName: String) : Template(sceneName) {
+    class View(sceneName: String) : SceneTemplate(sceneName) {
         override fun getProperties(templateProperties: Properties): Properties? = null
 
         override val name: String = "${sceneName}View"
         override val templateFileName: String = "CleanView"
     }
 
-    class Layout(sceneName: String) : Template(sceneName){
+    class Layout(sceneName: String) : SceneTemplate(sceneName) {
 
         override fun getProperties(templateProperties: Properties): Properties? = null
 
         override val name: String = "activity_$sceneName"
         override val templateFileName: String = "Layout"
+    }
+
+
+    class ActivityModule(sceneName: String) : SceneTemplate(sceneName) {
+        override val name = "${sceneName}ActivityModule"
+        override val templateFileName = "ActivityModule"
+        override fun getProperties(templateProperties: Properties): Properties? {
+            templateProperties.put("SCENE_NAME", sceneName)
+            return templateProperties
+        }
+
     }
 }

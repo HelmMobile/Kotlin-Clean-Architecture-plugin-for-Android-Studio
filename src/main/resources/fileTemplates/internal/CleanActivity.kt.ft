@@ -1,8 +1,7 @@
 package ${PACKAGE_NAME};
 
 import javax.inject.Inject
-import ${BASE_ACTIVITY}.base.BaseActivity
-import ${PAKCAGE}.R
+import ${R_PACKAGE}.R
 
 
 class ${NAME}:  BaseActivity(), ${VIEW_NAME} {
